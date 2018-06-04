@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head><title>Bottleneck</title>
+<style>
+html {width:100%;height:100%;}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px 0px;
+}
+.svg_filled {
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:0px;
+    bottom:0px;
+    width: 100%;
+    height:100%;
+    border:none;
+}
+
+.top_bar {
+    position:absolute;
+    left:5mm;
+    top:3mm;
+    right:5mm;
+    height:12mm;
+    border-radius:1.5mm;
+    background-color: #DDDDEF;
+    border: 1px solid #ABCDEF;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.top_bar * {
+    /* display:inline-block; */
+    flex: 0 1 auto;
+}
+.top_bar input,span {height:5mm;margin-top:auto;margin-bottom:auto;}
+.right_space {
+    position:absolute;
+    top:18mm;
+    right:5mm;
+    bottom:3mm;
+    width:70mm;
+    border-radius: 1.5mm;
+    background-color: #DDDDEF;
+    border: 1px solid #ABCDEF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.right_space * {
+    flex: 0 1 auto;
+}
+.bottom_bar {
+    position:absolute;
+    left:5mm;
+    bottom:3mm;
+    right:80mm;
+    height:12mm;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.bottom_bar * {
+    flex: 0 1 auto;
+}
+
+.top_bar, .right_space, .bottom_bar {
+    border-radius:1.5mm;
+    background-color: #FFEFEF;
+    border: 1px solid #ABCDEF;
+}
+
+</style>
+<script type="text/javascript" src="js/underscore.js"> </script>
+<script type="text/javascript" src="js/backbone.js"> </script>
+<!-- avoid jQuery dependencies -->
+<script type="text/javascript" src="js/backbone_nativeview.js"></script>
+<script>Backbone.View = Backbone.NativeView;</script>
+<script type="text/javascript" src="js/backbone_nativeajax.js"></script>
+<script type="text/javascript" src="js/backbone.localStorage.js"></script>
+<script type="text/javascript" src="js/MikePath.js"> </script>
+</head>
+<body>
+
+<iframe id="svg_iframe" name="svg_iframe" src="" div class="svg_filled">
+<%= content 'svg' %>
+</iframe>
+
+%= form_for 'selectors' => (target => 'svg_iframe') => (method => 'get') => begin
+<div class="top_bar">
+<%= content 'svg selectors' %>
+</div>
+%end
+
+<div class="right_space">
+<%= content 'bottleneck options' %>
+<hr style="width:90%;left:5%;"/>
+<%= content 'to paths options' %>
+</div>
+
+<div class="bottom_bar">
+<%= content 'svg location' %>
+</div>
+
+</body>
+</html>

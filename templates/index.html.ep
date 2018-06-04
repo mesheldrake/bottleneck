@@ -1,0 +1,48 @@
+% layout 'float_control';
+
+% content_for 'bottleneck options' => begin
+%= form_for 'edge_filter' => begin
+  % if (param 'user') {
+    <b>Wrong name or password, please try again.</b><br>
+  % }
+  Name:<br>
+  %= text_field 'user'
+% end
+% end
+
+% content_for 'to paths options' => begin
+here
+% end
+
+% content_for 'svg selectors' => begin
+  <span>XPATH node selectors</span>
+  %= text_field 'selector1'
+  %= text_field 'selector2'
+  %= text_field 'selector3'
+  %= submit_button 'do'
+
+% end
+
+% content_for 'svg location' => begin
+
+  <span>svg location:</span>
+  <input id="svg_loc" value="panel3030tester_3mm/nra_radial_rails/3mm_kiri/3mm kiri/parts/panel3030tester_3mm_core_stringers_and_ribs.J1.svg"/>
+  <input type="submit" id="set_svg_loc" value="set"/>
+
+<script>
+var svg_loc_m = new (Backbone.Model.extend({urlRoot:'/choose_svg'}))({id:'file',loc:'',tmploc:''});
+var svg_loc_v = new Backbone.View({el:"#set_svg_loc",model:svg_loc_m});
+svg_loc_v.listenTo(svg_loc_m,'change:tmploc',function(){document.getElementById('svg_iframe').src=svg_loc_m.get('tmploc');});
+svg_loc_v.delegateEvents({'click':function(){
+    this.model.save({'loc':document.getElementById('svg_loc').value},
+                    {success:function(o,r){
+                             console.log(r);
+                             if (!r.error){o.set('tmploc',r.loc)}
+                             }
+                    });
+    return false;
+}});
+
+</script>
+
+% end
